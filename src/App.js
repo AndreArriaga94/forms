@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef } from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const input = useRef()
+    const file = useRef()
+    const submit = () => {
+        console.log(input.current.value)
+        console.log(file.current.files[0])
+        const form = new FormData()
+        form.append('archivo', file.current.files[0])
+        form.append('campo', input.current.value)
+        fetch('/iaa',{method: 'POST', body:form})
+    }
+    return(
+        <div>
+            <div>
+                <span>Iaa</span>
+                <input type="text" name="campo" ref={input}/>
+                <input type="file" ref={file}/>
+            </div>
+            <input type="submit" value="Enviar" onClick={submit}/>
+        </div>
+    )
 }
 
-export default App;
+export default App
