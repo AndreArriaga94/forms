@@ -1,8 +1,14 @@
 import { useState } from "react"
 
 const App = () => {
-    const [value, setValue] = useState({normal: 'valor inicial', texto: '', select: 'feliz'})
-    const handleChange = (e) => {
+    const [value, setValue] = useState({
+        normal: 'valor inicial', 
+        texto: '', 
+        select: 'feliz', 
+        check: 'true', 
+        estado: 'feliz',
+    })
+    const handleChange = ({target}) => {
         // setValue({
         //     ...value,
         //     [e.target.name]: e.target.value
@@ -10,7 +16,9 @@ const App = () => {
 
         setValue((state) => ({
             ...state,
-            [e.target.name]: e.target.value
+            [target.name]: target.type == 'checkbox' 
+                ? target.checked 
+                : target.value
         }))
     }
     console.log(value)
@@ -26,6 +34,42 @@ const App = () => {
                 <option value="triste">Triste</option>
                 <option value="enojado">Enojado</option>
             </select>
+
+            <input 
+                type="checkbox"
+                name="check"
+                onChange={handleChange}
+                checked={value.check}
+            />
+
+            <div onChange={handleChange}>
+                <label>
+                    Arriaga
+                </label>
+                <input 
+                    onChange={handleChange}
+                    type="radio" 
+                    value="feliz"  
+                    name="estado" 
+                    checked={value.estado == "feliz" }
+                /> Feliz
+                <input 
+                    onChange={handleChange}
+                    type="radio" 
+                    value="triste" 
+                    name="estado" 
+                    checked={value.estado == "triste" }
+                /> Triste
+                <input 
+                    onChange={handleChange}
+                    type="radio" 
+                    value="enojado" 
+                    name="estado" 
+                    checked={value.estado == "enojado" }
+                /> Enojado
+            </div>
+            
+            
         </div>
     )
 }
