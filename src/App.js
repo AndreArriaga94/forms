@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 const App = () => {
-    const [value, setValue] = useState({normal: 'valor inicial', texto: ''})
+    const [value, setValue] = useState({normal: 'valor inicial', texto: '', select: 'feliz'})
     const handleChange = (e) => {
         // setValue({
         //     ...value,
@@ -19,6 +19,13 @@ const App = () => {
             {value.normal.length < 5 ? <span>longitud minima de 5</span> : null}
             <input type="text" name="normal" value={value.normal} onChange={handleChange}/>
             <textarea name="texto" onChange={handleChange} value={value.texto}/>
+
+            <select value={value.select} name="select" onChange={handleChange}>
+                <option value="">Seleccione</option>
+                <option value="feliz">Feliz</option>
+                <option value="triste">Triste</option>
+                <option value="enojado">Enojado</option>
+            </select>
         </div>
     )
 }
